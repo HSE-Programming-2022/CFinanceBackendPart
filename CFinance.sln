@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32526.322
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CFinance.WebAPI", "CFinance.WebAPI\CFinance.WebAPI.csproj", "{2EE564CE-8AEF-4016-8A06-9F365E377762}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CFinance.Context", "CFinance.Context\CFinance.Context.csproj", "{8DA34E4F-16C7-40CD-BC26-E947C9881116}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2EE564CE-8AEF-4016-8A06-9F365E377762}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2EE564CE-8AEF-4016-8A06-9F365E377762}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2EE564CE-8AEF-4016-8A06-9F365E377762}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2EE564CE-8AEF-4016-8A06-9F365E377762}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8DA34E4F-16C7-40CD-BC26-E947C9881116}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8DA34E4F-16C7-40CD-BC26-E947C9881116}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8DA34E4F-16C7-40CD-BC26-E947C9881116}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8DA34E4F-16C7-40CD-BC26-E947C9881116}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {50B0BB22-B6E5-4CBD-82DC-32F7CA8400C9}
+	EndGlobalSection
+EndGlobal
