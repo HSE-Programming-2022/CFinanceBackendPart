@@ -44,7 +44,7 @@ public static class UserService
     public static void Delete(int uid)
     {
 
-        User user = new User() {UserID = uid};
+        var user = new User() {UserID = uid};
 
         AppContext.Users.Attach(user);
         AppContext.Users.Remove(user);
@@ -54,7 +54,7 @@ public static class UserService
 
     public static void Update(int uid)
     {
-        User user = new User() {UserID = uid};
+        var user = new User() {UserID = uid};
 
         AppContext.Users.Attach(user);
         AppContext.Users.Update(user);

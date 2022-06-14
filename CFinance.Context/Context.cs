@@ -13,10 +13,40 @@ namespace CFinance.Context
         private static string Password = "502af24ca12303d06ee70ebce9ae299815c93976ce1a8dd77aab1e725ba8d495";
 
         public DbSet<User> Users { get; set; }
+        public DbSet<Company> Companies { get; set; }
+        public DbSet<Cashflows> Cashflows { get; set; }
+        public DbSet<Metrics> Metrics { get; set; }
+        public DbSet<IncomeStatement> IncomeStatements { get; set; }
+        public DbSet<BalanceSheet> BalanceSheets { get; set; }
+
+
 
         public CFinanceDbContext()
         {
             Database.EnsureCreated();
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Company>()
+                .HasOne(f => f.Cashflow)
+                .WithOne(c => c.Company)
+                .HasForeignKey<Cashflows>(c => c.Ticker);
+
+            modelBuilder.Entity<Company>()
+                .HasOne(c => c.Metrics)
+                .WithOne(m => m.Company)
+                .HasForeignKey<Metrics>(m => m.Ticker);
+
+            modelBuilder.Entity<Company>()
+                .HasOne(c => c.IncomeStatement)
+                .WithOne(m => m.Company)
+                .HasForeignKey<IncomeStatement>(i => i.Ticker);
+
+            modelBuilder.Entity<Company>()
+                .HasOne(c => c.BalanceSheet)
+                .WithOne(b => b.Company)
+                .HasForeignKey<BalanceSheet>(b => b.Ticker);
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
