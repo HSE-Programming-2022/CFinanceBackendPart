@@ -9,24 +9,29 @@ namespace CFinance.WebAPI.Services;
 public static class UserService
 {
     private static List<User> Users { get; set; }
+    private static List<Portfolio> portfolios { get; set; }
+    private static List< PortfolioCompany> companies { get; set; }
+
     private static CFinanceDbContext AppContext { get; set; }
     static UserService()
     {
         AppContext = new CFinanceDbContext();
         
         Users = AppContext.Users.ToList();
+        portfolios = AppContext.Portfolios.ToList();
+        companies = AppContext.PortfolioCompany.ToList();
     }
 
     public static List<User> GetAll() => Users;
 
-    public static User Get(int uid)
+    public static User? Get(int uid)
     {
         return Users.FirstOrDefault(u => u.UserID == uid);
     }
 
-    public static bool Login(User user)
+    public static User? Login(string username, string password)
     {
-        return (Users.Any(u => (u.UserName == user.UserName) && (u.CheckPassword(user.Password.GetHashCode()))));
+        return Users.FirstOrDefault(u => (u.UserName == username) && (u.CheckPassword(password)));
     }
     public static bool Add(User newUser)
     {
@@ -35,6 +40,8 @@ public static class UserService
             return false;
         }
 
+        
+        newUser.HashPassword();
         AppContext.Users.Add(newUser);
         AppContext.SaveChanges();
 

@@ -18,7 +18,8 @@ namespace CFinance.Context
         public DbSet<Metrics> Metrics { get; set; }
         public DbSet<IncomeStatement> IncomeStatements { get; set; }
         public DbSet<BalanceSheet> BalanceSheets { get; set; }
-
+        public DbSet<Portfolio> Portfolios { get; set; }
+        public DbSet<PortfolioCompany> PortfolioCompany { get; set; }
 
 
         public CFinanceDbContext()
@@ -28,6 +29,13 @@ namespace CFinance.Context
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<PortfolioCompany>().HasKey(u => new
+                {
+                u.PortfolioID,
+                u.Ticker
+                }
+            );
+
             modelBuilder.Entity<Company>()
                 .HasOne(f => f.Cashflow)
                 .WithOne(c => c.Company)
@@ -47,8 +55,17 @@ namespace CFinance.Context
                 .HasOne(c => c.BalanceSheet)
                 .WithOne(b => b.Company)
                 .HasForeignKey<BalanceSheet>(b => b.Ticker);
-        }
 
+            modelBuilder.Entity<User>()
+                .HasMany(u => u.Portfolios)
+                .WithOne(p => p.User)
+                .HasForeignKey(p => p.UserID);
+
+            modelBuilder.Entity<Portfolio>()
+                .HasMany(p => p.Companies)
+                .WithOne(p => p.portfolio)
+                .HasForeignKey(p => p.PortfolioID);
+        }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             string connectionString = $"Host={Host};Port={Port};Database={DBName};Username={User};Password={Password}";

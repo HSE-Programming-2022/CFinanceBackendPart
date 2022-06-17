@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using System.Security.Cryptography;
+using BCrypt.Net;
 
 
 namespace CFinance.Context.Models
@@ -24,12 +25,17 @@ namespace CFinance.Context.Models
     {
         [Column("user_id")][Key] public int UserID { get; set; }
         [Column("username")] public string UserName { get; set; }
-        [Column("password")] public string Password { get; set; }
+        [Column("password")][JsonIgnore] public string? Password { get; set; }
         [Column("email")] public string Email { get; set; }
-
-        public bool CheckPassword(int attemptPassword)
+        public List<Portfolio> Portfolios { get; set; }
+        public bool CheckPassword(string attemptPassword)
         {
-            return (attemptPassword == Password.GetHashCode());
+            return BCrypt.Net.BCrypt.Verify(attemptPassword, this.Password);
+        }
+
+        public void HashPassword()
+        {
+            this.Password = BCrypt.Net.BCrypt.HashPassword(this.Password);
         }
     }
 
@@ -62,7 +68,6 @@ namespace CFinance.Context.Models
         [Column("financing_flow", TypeName = "money")] public decimal? FinancingFlow { get; set; }
         [Column("investment_flow", TypeName = "money")] public decimal? InvestmentFlow { get; set; }
         [Column("cashflow_delta", TypeName = "money")] public decimal? CashFlowDelta { get; set; }
-
         [JsonIgnore] public Company Company { get; set; }
 
     }
@@ -109,4 +114,24 @@ namespace CFinance.Context.Models
 
         [JsonIgnore] public Company Company { get; set; }
     }
+
+    [Table("portfolio")]
+    public class Portfolio
+    {
+        [Key][Column("portfolio_id")] public int PortfolioID { get; set; }
+        [Column("user_id")] public int UserID { get; set; }
+        public List<PortfolioCompany>? Companies { get; set; }
+        [JsonIgnore] public User? User { get; set; }
+    }
+
+    [Table("portfolio_company")]
+    public class PortfolioCompany
+    {
+        [Key][Column("portfolio_id")] public int PortfolioID { get; set; }
+        [Key][Column("ticker")] public string Ticker { get; set; }
+        [Column("amount")] public int Amount { get; set; }
+        [JsonIgnore] public Portfolio? portfolio;
+    }
+
+
 }

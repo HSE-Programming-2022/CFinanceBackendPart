@@ -31,12 +31,14 @@ public class UserController : ControllerBase
 
     [HttpGet]
     [ActionName("Login")]
-    public IActionResult Login(User user)
+    public ActionResult<User> Login(string password, string username)
     {
-        if (UserService.Login(user))
-            return Ok();
+        var loggedUser = UserService.Login(username, password);
 
-        return BadRequest();
+        if (loggedUser == null)
+            return BadRequest();
+
+        return loggedUser;
     }
 
     [HttpPost]

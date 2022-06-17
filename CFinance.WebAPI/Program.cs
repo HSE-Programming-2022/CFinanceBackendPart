@@ -7,6 +7,9 @@ builder.Services.AddControllers().AddNewtonsoftJson();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+
+var port = Environment.GetEnvironmentVariable("PORT") ?? "5100";
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -21,5 +24,7 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.Urls.Add($"https://*:{port}");
 
 app.Run();

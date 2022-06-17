@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="6.0.6" />
+    <PackageReference Include="Yandex.Checkout.V3" Version="1.6.0" />
   </ItemGroup>
 
   <ItemGroup>
