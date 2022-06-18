@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using CFinance.Context.Models;
+using CFinance.WebAPI.Models;
 using CFinance.WebAPI.Services;
 using Microsoft.AspNetCore.Mvc.NewtonsoftJson;
 
@@ -10,18 +12,32 @@ namespace CFinance.WebAPI.Controllers
     [Route("[controller]")]
     public class CompanyController : Controller
     {
+        private readonly IMapper _mapper;
+
+        public CompanyController(IMapper mapper)
+        {
+            _mapper = mapper;
+        }
+
         [HttpGet("{ticker}")]
-        public ActionResult<Company> Get(string ticker)
+        public ActionResult<CompanyResponse> Get(string ticker)
         {
             var company = CompanyService.Get(ticker);
 
             if (company == null)
                 return NotFound();
 
-            return company;
+            var companyDTOMapped = _mapper.Map<CompanyResponse>(company);
+
+            return companyDTOMapped;
         }
 
         [HttpGet]
-        public ActionResult<List<Company>> GetAll() => CompanyService.GetAll();
+        public ActionResult<List<CompanyResponse>> GetAll()
+        {
+           List<Company> allCompanies = CompanyService.GetAll();
+
+
+        }
     }
 }

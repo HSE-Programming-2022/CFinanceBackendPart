@@ -1,5 +1,7 @@
-﻿using CFinance.Context;
+﻿using AutoMapper;
+using CFinance.Context;
 using CFinance.Context.Models;
+using CFinance.WebAPI.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Any;

@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using CFinance.Context.Models;
+using CFinance.WebAPI.Models;
 using CFinance.WebAPI.Services;
 using Microsoft.OpenApi.Any;
 
@@ -9,8 +11,10 @@ namespace CFinance.WebAPI.Controllers;
 [Route("[controller]/[action]")]
 public class UserController : ControllerBase
 {
-    public UserController()
+    private IMapper _mapper;
+    public UserController(IMapper mapper)
     {
+        _mapper = mapper;
     }
 
     [HttpGet]
@@ -19,26 +23,30 @@ public class UserController : ControllerBase
 
     [HttpGet("{uid}")]
     [ActionName("GetUser")]
-    public ActionResult<User> Get(int uid)
+    public ActionResult<UserResponse> Get(int uid)
     {
         var user = UserService.Get(uid);
 
         if (user == null)
             return NotFound();
 
-        return user;
+        UserResponse userResponse = _mapper.Map<UserResponse>(user);
+
+        return userResponse;
     }
 
     [HttpGet]
     [ActionName("Login")]
-    public ActionResult<User> Login(string username, string password)
+    public ActionResult<UserResponse> Login(string username, string password)
     {
         var loggedUser = UserService.Login(username, password);
 
         if (loggedUser == null)
             return BadRequest();
 
-        return loggedUser;
+        UserResponse userResponse = _mapper.Map<UserResponse>(loggedUser);
+
+        return userResponse;
     }
 
     [HttpPost]
