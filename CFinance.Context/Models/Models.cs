@@ -25,9 +25,9 @@ namespace CFinance.Context.Models
     {
         [Column("user_id")][Key] public int UserID { get; set; }
         [Column("username")] public string UserName { get; set; }
-        [Column("password")][JsonIgnore] public string? Password { get; set; }
+        [Column("password")] public string? Password { get; set; }
         [Column("email")] public string Email { get; set; }
-        public List<Portfolio> Portfolios { get; set; }
+        public List<Portfolio>? Portfolios { get; set; }
         public bool CheckPassword(string attemptPassword)
         {
             return BCrypt.Net.BCrypt.Verify(attemptPassword, this.Password);

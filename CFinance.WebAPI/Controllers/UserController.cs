@@ -31,7 +31,7 @@ public class UserController : ControllerBase
 
     [HttpGet]
     [ActionName("Login")]
-    public ActionResult<User> Login(string password, string username)
+    public ActionResult<User> Login(string username, string password)
     {
         var loggedUser = UserService.Login(username, password);
 
@@ -50,34 +50,6 @@ public class UserController : ControllerBase
         }
 
         return BadRequest();
-    }
-
-    [HttpDelete("{uid}")]
-    public IActionResult Delete(int uid)
-    {
-        var user = UserService.Get(uid);
-
-        if (user is null)
-            return NotFound();
-
-        UserService.Delete(uid);
-
-        return NoContent();
-    }
-
-    [HttpPut("{uid}")]
-    public IActionResult Update(int uid, User user)
-    {
-        if (uid != user.UserID)
-            return BadRequest();
-
-        var existingUser = UserService.Get(uid);
-        if (existingUser is null)
-            return NotFound();
-
-        UserService.Update(uid);
-
-        return NoContent();
     }
 }
 
