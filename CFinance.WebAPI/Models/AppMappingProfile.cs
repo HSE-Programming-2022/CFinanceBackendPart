@@ -7,8 +7,9 @@ namespace CFinance.WebAPI.Models
     {
         public CompanyMappingProfile()
         {
+
             CreateMap<Company, CompanyResponse>();
-            
+
             CreateMap<BalanceSheet, BalanceSheetResponse>();
             CreateMap<IncomeStatement, IncomeStatementResponse>();
             CreateMap<Cashflows, CashflowsResponse>();

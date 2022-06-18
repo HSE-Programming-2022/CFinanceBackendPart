@@ -37,7 +37,7 @@ namespace CFinance.WebAPI.Controllers
         {
            List<Company> allCompanies = CompanyService.GetAll();
 
-
+           return allCompanies.Select(x => _mapper.Map<CompanyResponse>(x)).ToList();
         }
     }
 }
