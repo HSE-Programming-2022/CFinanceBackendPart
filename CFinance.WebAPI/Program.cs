@@ -25,6 +25,6 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-app.Urls.Add($"https://*:{port}");
+app.Urls.Add($"http://*:{port}");
 
 app.Run();
