@@ -73,11 +73,24 @@ namespace CFinance.WebAPI.Models
     {
         public int UserID { get; set; }
         public int PortfolioID { get; set; }
+        public string Name { get; set; }
         public List<PortfolioCompanyResponse> Companies { get; set; }
     }
 
     public class PortfolioCompanyResponse
     {
         public string Ticker { get; set; }
+    }
+
+    public class CreatePortfolioRequest
+    {
+        public int uid { get; set; }
+        public string name { get; set; }
+    }
+
+    public class PositionEditRequest
+    {
+        public int pid { get; set; }
+        public string ticker { get; set; }
     }
 }

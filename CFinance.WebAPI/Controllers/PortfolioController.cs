@@ -29,11 +29,14 @@ namespace CFinance.WebAPI.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreatePortfolioForUser(int uid)
+        public IActionResult CreatePortfolioForUser(CreatePortfolioRequest uidRequest)
         {
+            int uid = uidRequest.uid;
+            string name = uidRequest.name;
+
             try
             {
-                int newPortfolioId = PortfolioService.CreatePortfolioForUser(uid);
+                int newPortfolioId = PortfolioService.CreatePortfolioForUser(uid, name);
 
                 return Ok(newPortfolioId);
             }
@@ -45,9 +48,9 @@ namespace CFinance.WebAPI.Controllers
 
         [HttpPost]
 
-        public IActionResult AddToPortfolio(int pid, string ticker)
+        public IActionResult AddToPortfolio(PositionEditRequest request)
         {
-            PortfolioService.AddPositionToPortfolio(ticker, pid);
+            PortfolioService.AddPositionToPortfolio(request.ticker, request.pid);
 
             return Ok();
         }

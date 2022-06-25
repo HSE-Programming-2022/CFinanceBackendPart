@@ -18,13 +18,14 @@ namespace CFinance.WebAPI.Services
             }
         }
 
-        public static int CreatePortfolioForUser(int uid)
+        public static int CreatePortfolioForUser(int uid, string name)
         {
             using (CFinanceDbContext appContext = new CFinanceDbContext())
             {
                 Portfolio newPortfolio = new Portfolio()
                 {
-                    UserID = uid
+                    UserID = uid,
+                    Name = name
                 };
 
                 appContext.Portfolios.Add(newPortfolio);

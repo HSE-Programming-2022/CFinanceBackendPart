@@ -19,7 +19,12 @@ public class UserController : ControllerBase
 
     [HttpGet]
     [ActionName("GetAllUsers")]
-    public ActionResult<List<User>> GetAll() => UserService.GetAll();
+    public ActionResult<List<UserResponse>> GetAll()
+    {
+        List<User> allUsers = UserService.GetAll();
+
+        return allUsers.Select(x => _mapper.Map<UserResponse>(x)).ToList();
+    }
 
     [HttpGet("{uid}")]
     [ActionName("GetUser")]

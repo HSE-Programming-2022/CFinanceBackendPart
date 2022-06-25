@@ -121,6 +121,7 @@ namespace CFinance.Context.Models
     {
         [Key][Column("portfolio_id")] public int PortfolioID { get; set; }
         [Column("user_id")] public int UserID { get; set; }
+        [Column("portfolio_name")] public string Name { get; set; }
         public List<PortfolioCompany>? Companies { get; set; }
         [JsonIgnore] public User? User { get; set; }
     }

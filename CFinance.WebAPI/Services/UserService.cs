@@ -15,7 +15,13 @@ public static class UserService
     {
     }
 
-    public static List<User> GetAll() => Users;
+    public static List<User> GetAll()
+    {
+        using (CFinanceDbContext appContext = new CFinanceDbContext())
+        {
+            return appContext.Users.ToList();
+        }
+    }
 
     public static User? Get(int uid)
     {
