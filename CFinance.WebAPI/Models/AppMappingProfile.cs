@@ -14,6 +14,7 @@ namespace CFinance.WebAPI.Models
             CreateMap<IncomeStatement, IncomeStatementResponse>();
             CreateMap<Cashflows, CashflowsResponse>();
             CreateMap<Metrics, MetricsResponse>();
+
         }
     }
 
@@ -22,6 +23,15 @@ namespace CFinance.WebAPI.Models
         public UserMappingProfile()
         {
             CreateMap<User, UserResponse>();
+        }
+    }
+
+    public class PortfolioMappingProfile : Profile
+    {
+        public PortfolioMappingProfile()
+        {
+            CreateMap<Portfolio, PortfolioResponse>();
+            CreateMap<PortfolioCompany, PortfolioCompanyResponse>();
         }
     }
 }

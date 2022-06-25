@@ -27,6 +27,7 @@ namespace CFinance.Context.Models
         [Column("username")] public string UserName { get; set; }
         [Column("password")] public string? Password { get; set; }
         [Column("email")] public string Email { get; set; }
+        [Column("subscription_status")] public bool SubscriptionStatus { get; set; }
         public List<Portfolio>? Portfolios { get; set; }
         public bool CheckPassword(string attemptPassword)
         {
@@ -129,7 +130,7 @@ namespace CFinance.Context.Models
     {
         [Key][Column("portfolio_id")] public int PortfolioID { get; set; }
         [Key][Column("ticker")] public string Ticker { get; set; }
-        [Column("amount")] public int Amount { get; set; }
+
         [JsonIgnore] public Portfolio? portfolio;
     }
 

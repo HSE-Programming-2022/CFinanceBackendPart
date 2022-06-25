@@ -1,4 +1,8 @@
-﻿namespace CFinance.WebAPI.Models
+﻿using System.Net;
+using CFinance.Context.Models;
+using CFinance.WebAPI.Services;
+
+namespace CFinance.WebAPI.Models
 {
     public class CompanyResponse
     {
@@ -61,5 +65,19 @@
         public int UserID { get; set; }
         public string UserName { get; set; }
         public string Email { get; set; }
+        public bool SubscriptionStatus { get; set; }
+        public List<PortfolioResponse> Portfolios { get; set; }
+    }
+
+    public class PortfolioResponse
+    {
+        public int UserID { get; set; }
+        public int PortfolioID { get; set; }
+        public List<PortfolioCompanyResponse> Companies { get; set; }
+    }
+
+    public class PortfolioCompanyResponse
+    {
+        public string Ticker { get; set; }
     }
 }

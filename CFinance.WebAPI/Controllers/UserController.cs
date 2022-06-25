@@ -59,5 +59,20 @@ public class UserController : ControllerBase
 
         return BadRequest();
     }
+
+    [HttpPut]
+    public IActionResult Subscribe(int UserId)
+    {
+        try
+        {
+            UserService.Subscribe(UserId);
+
+            return Ok();
+        }
+        catch (Exception e)
+        {
+            return BadRequest();
+        }
+    }
 }
 

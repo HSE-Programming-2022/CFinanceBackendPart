@@ -21,6 +21,9 @@ public static class UserService
     {
         using (CFinanceDbContext appContext = new CFinanceDbContext())
         {
+            var Portfolios = appContext.Portfolios.ToList();
+            var PTC = appContext.PortfolioCompany.ToList();
+
             Users = appContext.Users.ToList();
             return Users.FirstOrDefault(u => u.UserID == uid);
         }
@@ -30,6 +33,9 @@ public static class UserService
     {
         using (CFinanceDbContext appContext = new CFinanceDbContext())
         {
+            var Portfolios = appContext.Portfolios.ToList();
+            var PTC = appContext.PortfolioCompany.ToList();
+
             Users = appContext.Users.ToList();
             return Users.FirstOrDefault(u => (u.UserName == username) && (u.CheckPassword(password)));
         }
@@ -77,6 +83,21 @@ public static class UserService
             appContext.Users.Update(user);
 
             appContext.SaveChanges();
+        }
+    }
+
+    public static void Subscribe(int uid)
+    {
+        using (CFinanceDbContext appContext = new CFinanceDbContext())
+        {
+            var user = appContext.Users.FirstOrDefault(x => x.UserID == uid);
+
+            if (user != null)
+            {
+                user.SubscriptionStatus = true;
+                
+                appContext.SaveChanges();
+            }
         }
     }
 
